@@ -42,25 +42,25 @@ Under main page, there are an Add an account page. After click it, there are man
 <img src="./assets/images/HomeWithSquare.jpg" title="" alt="My Photo" width="214">
 <img src="./assets/images/Add on account.jpg" title="" alt="My Photo" width="214">
 
-## Panchal, Sanskar
+## Panchal, Sanskar Umangkumar
 
 Notification page, which is under main page, click a bell icon on the left top.
 
 <img src="./assets/images/Notifications.jpg" title="" alt="My Photo" width="214">
 
-## Panchal, Vinit
+## Panchal, Vinit Dharmendrakumar
 
 Under main page, there is a for you widgit, please implement it.
 
 <img src="./assets/images/For%20you.jpg" title="" alt="My Photo" width="214">
 
-## Pancholi, Jinal & Pandya, Shrey & Pandya, Shubham
+## Pancholi, Jinal Brijesh & Pandya, Shrey Paragkumar & Pandya, Shubham Bhupendrakumar
 
 Discover page. Well, this page is hard, your three could negotiate how to do it.
 
 <img src="./assets/images/Discover.jpg" title="" alt="My Photo" width="214">
 
-## Parmar, Shrey
+## Parmar, Shrey Yogeshbhai
 
 Move page.
 
