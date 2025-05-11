@@ -1,3 +1,4 @@
+import 'package:fintech_investor_app/models/open_account.dart';
 import 'package:flutter/material.dart';
 
 class Accounts extends StatefulWidget {
@@ -9,9 +10,14 @@ class AccountsState extends State<Accounts> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Expanded(
-      child: ListView(
-        children: [
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Account",
+            style: Theme.of(context).textTheme.headlineLarge,
+            // style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
           Card(
             child: ListTile(
               leading: Icon(Icons.savings, color: Color(0xFFE5A4A7)),
@@ -39,6 +45,7 @@ class AccountsState extends State<Accounts> {
               isThreeLine: true,
             ),
           ),
+          OpenAccount(),
         ],
       ),
     );
