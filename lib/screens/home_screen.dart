@@ -4,6 +4,7 @@ import 'package:fintech_investor_app/models/core.dart';
 import 'package:fintech_investor_app/models/notifications.dart';
 import 'package:fintech_investor_app/models/rewards.dart';
 import 'package:flutter/material.dart';
+import 'package:fintech_investor_app/screens/notifications_page.dart';
 
 // Home screen has three parts. Encapsulate them to classes for convenience.
 // 1. App bar.
@@ -24,7 +25,15 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Row(
           children: [
             const Text('Home'),
-            Notifications(),
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const NotificationsPage()),
+              );
+            },
+          ),
             Rewards(),
             Core(),
           ],
