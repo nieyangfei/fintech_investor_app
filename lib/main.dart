@@ -38,7 +38,7 @@ class _MainWrapperState extends State<MainWrapper> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const DiscoverScreen(),
-    const MoveScreen(),
+    MoveScreen(),
     const ActivityScreen(),
   ];
 
