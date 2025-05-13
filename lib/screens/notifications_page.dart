@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 class NotificationsPage extends StatelessWidget {
+  static const routeName = '/notifications';
   const NotificationsPage({super.key});
 
   @override

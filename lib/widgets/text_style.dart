@@ -7,3 +7,4 @@ class HeadlineTextStyle extends StatelessWidget{
     return Text("Advertises.");
   }
 }
+
