@@ -1,6 +1,7 @@
 import 'package:fintech_investor_app/models/accounts.dart';
 import 'package:fintech_investor_app/models/advertises.dart';
 import 'package:fintech_investor_app/models/core.dart';
+import 'package:fintech_investor_app/models/for_you.dart';
 import 'package:fintech_investor_app/models/notifications.dart';
 import 'package:fintech_investor_app/models/rewards.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         // Accounts & Advertises.
-        children: [Accounts(), Advertises()],
+        children: [Accounts(), Advertises(), const ForYou()],
       ),
     );
   }
