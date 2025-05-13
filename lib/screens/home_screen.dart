@@ -5,6 +5,7 @@ import 'package:fintech_investor_app/models/accounts.dart';
 import 'package:fintech_investor_app/models/advertises.dart';
 import 'package:fintech_investor_app/screens/notifications_page.dart';
 import 'package:fintech_investor_app/screens/account_screen.dart';
+import 'package:fintech_investor_app/models/for_you.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -84,6 +85,7 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           )),
+          const ForYou(),
         ],
       ),
     );
