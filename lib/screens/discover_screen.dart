@@ -13,7 +13,7 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   int selectedTabIndex = 0;
-  final List<String> tabs = ["Stocks", "ETFs", "Crypto", "Options"];
+  final List<String> tabs = ["Stocks", "Crypto"];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 🔍 Search Bar
+          // Search Bar
           Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
@@ -45,7 +45,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
           ),
 
-          // 📰 News Headlines (Clickable)
+          // News Headlines
           SizedBox(
             height: 160,
             child: FutureBuilder<List<News>>(
@@ -57,7 +57,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   return Center(child: Text("Error: ${snapshot.error}"));
                 }
 
-                final newsList = snapshot.data!;
+                final List<News> newsList = snapshot.data as List<News>;
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: newsList.length,
@@ -86,7 +86,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             gradient: LinearGradient(
-                              colors: [Colors.black.withOpacity(0.7), Colors.transparent],
+                              colors: [
+                                Colors.black.withAlpha((0.7 * 255).toInt()),
+                                Colors.transparent
+                              ],
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                             ),
@@ -108,7 +111,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
           ),
 
-          // 🧭 Tab Bar
+          // Tab Bar
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -138,7 +141,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
           ),
 
-          // 📊 Tab Content (Stocks, ETFs, Crypto, Options)
+          // Tab Content
           Expanded(
             child: Builder(
               builder: (context) {
@@ -153,7 +156,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           return Center(child: Text("Error: ${snapshot.error}"));
                         }
 
-                        final stocks = snapshot.data!;
+                        final stocks = snapshot.data as List<Stock>;
                         return ListView.builder(
                           itemCount: stocks.length,
                           itemBuilder: (context, index) {
@@ -174,29 +177,40 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         );
                       },
                     );
+
                   case 1:
-                    return ListView(
-                      children: const [
-                        ListTile(title: Text("VOO - Vanguard S&P 500 ETF")),
-                        ListTile(title: Text("ARKK - ARK Innovation ETF")),
-                        ListTile(title: Text("SPY - SPDR S&P 500 ETF Trust")),
-                      ],
+                    return FutureBuilder(
+                      future: NewsService.fetchCryptoNews(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(child: Text("Error: ${snapshot.error}"));
+                        }
+
+                        final newsList = snapshot.data as List<News>;
+                        return ListView.builder(
+                          itemCount: newsList.length,
+                          itemBuilder: (context, index) {
+                            final news = newsList[index];
+                            return ListTile(
+                              leading: news.image.isNotEmpty
+                                  ? Image.network(news.image, width: 50, height: 50, fit: BoxFit.cover)
+                                  : const Icon(Icons.newspaper),
+                              title: Text(news.title),
+                              subtitle: Text(news.site),
+                              onTap: () async {
+                                final uri = Uri.parse(news.url);
+                                if (await canLaunchUrl(uri)) {
+                                  launchUrl(uri, mode: LaunchMode.externalApplication);
+                                }
+                              },
+                            );
+                          },
+                        );
+                      },
                     );
-                  case 2:
-                    return ListView(
-                      children: const [
-                        ListTile(title: Text("BTC - Bitcoin")),
-                        ListTile(title: Text("ETH - Ethereum")),
-                        ListTile(title: Text("SOL - Solana")),
-                      ],
-                    );
-                  case 3:
-                    return ListView(
-                      children: const [
-                        ListTile(title: Text("Call Option - AAPL \$180")),
-                        ListTile(title: Text("Put Option - TSLA \$150")),
-                      ],
-                    );
+
                   default:
                     return const Center(child: Text("Coming soon..."));
                 }

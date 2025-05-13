@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class News {
   final String title;
   final String image;
@@ -10,43 +13,51 @@ class News {
     required this.site,
     required this.url,
   });
+
+  factory News.fromJson(Map<String, dynamic> json) {
+    return News(
+      title: json['title'] ?? 'No Title',
+      image: json['image_url'] ?? '',
+      site: json['source_id'] ?? 'Unknown',
+      url: json['link'] ?? '',
+    );
+  }
 }
 
 class NewsService {
   static Future<List<News>> fetchNews() async {
-    await Future.delayed(const Duration(seconds: 1)); // simulate delay
+    final url =
+        'https://newsdata.io/api/1/news?apikey=pub_86840580289676743130062b95e34678952c2&country=us&category=business&language=en';
 
-    return [
-      News(
-        title: "Markets Rally Amid Fed Pause",
-        image: "https://source.unsplash.com/featured/?stock,market",
-        site: "Bloomberg",
-        url: "https://www.bloomberg.com",
-      ),
-      News(
-        title: "Tech Stocks Lead Recovery",
-        image: "https://source.unsplash.com/featured/?technology,finance",
-        site: "Reuters",
-        url: "https://www.reuters.com",
-      ),
-      News(
-        title: "Investors Eye CPI Data",
-        image: "https://source.unsplash.com/featured/?economy,data",
-        site: "CNBC",
-        url: "https://www.cnbc.com",
-      ),
-      News(
-        title: "Crypto Market Bounces Back",
-        image: "https://source.unsplash.com/featured/?crypto,blockchain",
-        site: "CoinDesk",
-        url: "https://www.coindesk.com",
-      ),
-      News(
-        title: "AI Stocks Take Center Stage",
-        image: "https://source.unsplash.com/featured/?AI,finance",
-        site: "TechCrunch",
-        url: "https://techcrunch.com",
-      ),
-    ];
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final List articles = jsonData['results'];
+        return articles.map((e) => News.fromJson(e)).toList();
+      } else {
+        throw Exception('News API error: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('News fetch failed: $e');
+    }
+  }
+
+  static Future<List<News>> fetchCryptoNews() async {
+    final url =
+        'https://newsdata.io/api/1/news?apikey=pub_86840580289676743130062b95e34678952c2&q=crypto&category=business&language=en';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final List articles = jsonData['results'];
+        return articles.map((e) => News.fromJson(e)).toList();
+      } else {
+        throw Exception('Crypto API error: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Crypto fetch failed: $e');
+    }
   }
 }
