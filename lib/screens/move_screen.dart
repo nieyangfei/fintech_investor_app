@@ -2,12 +2,36 @@ import 'package:flutter/material.dart';
 
 class MoveScreen extends StatelessWidget {
   final List<_MoveItem> moveItems = [
-    _MoveItem(icon: Icons.arrow_downward, title: 'Deposit', screen: DepositScreen()),
-    _MoveItem(icon: Icons.compare_arrows, title: 'Transfer', screen: TransferScreen()),
-    _MoveItem(icon: Icons.arrow_upward, title: 'Withdraw', screen: WithdrawScreen()),
-    _MoveItem(icon: Icons.account_balance, title: 'Move an account to Wealthsimple', screen: MoveAccountScreen()),
-    _MoveItem(icon: Icons.attach_money, title: 'Wire funds', screen: WireFundsScreen()),
-    _MoveItem(icon: Icons.sync, title: 'Automations', screen: AutomationsScreen()),
+    _MoveItem(
+      icon: Icons.arrow_downward,
+      title: 'Deposit',
+      screen: DepositScreen(),
+    ),
+    _MoveItem(
+      icon: Icons.compare_arrows,
+      title: 'Transfer',
+      screen: TransferScreen(),
+    ),
+    _MoveItem(
+      icon: Icons.arrow_upward,
+      title: 'Withdraw',
+      screen: WithdrawScreen(),
+    ),
+    _MoveItem(
+      icon: Icons.account_balance,
+      title: 'Move an account to Wealthsimple',
+      screen: MoveAccountScreen(),
+    ),
+    _MoveItem(
+      icon: Icons.attach_money,
+      title: 'Wire funds',
+      screen: WireFundsScreen(),
+    ),
+    _MoveItem(
+      icon: Icons.sync,
+      title: 'Automations',
+      screen: AutomationsScreen(),
+    ),
   ];
 
   @override
@@ -26,14 +50,25 @@ class MoveScreen extends StatelessWidget {
       ),
       body: ListView.separated(
         itemCount: moveItems.length,
-        separatorBuilder: (_, __) => Divider(height: 1, color: Colors.grey.shade300),
+        separatorBuilder:
+            (_, __) => Divider(height: 1, color: Colors.grey.shade300),
         itemBuilder: (context, index) {
           final item = moveItems[index];
           return ListTile(
-            leading: Icon(item.icon, color: Theme.of(context).colorScheme.primary),
-            title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w600)),
+            leading: Icon(
+              item.icon,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: Text(
+              item.title,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
             trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => item.screen)),
+            onTap:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => item.screen),
+                ),
           );
         },
       ),
@@ -60,7 +95,10 @@ Widget buildTextField(String label, String hint) {
           hintText: hint,
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),
@@ -179,7 +217,11 @@ class _FormPage extends StatelessWidget {
   final List<Widget> children;
   final String buttonText;
 
-  const _FormPage({required this.title, required this.children, required this.buttonText});
+  const _FormPage({
+    required this.title,
+    required this.children,
+    required this.buttonText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -194,10 +236,7 @@ class _FormPage extends StatelessWidget {
             const Spacer(),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(buttonText),
-              ),
+              child: ElevatedButton(onPressed: () {}, child: Text(buttonText)),
             ),
           ],
         ),
@@ -212,7 +251,11 @@ class _InfoPage extends StatelessWidget {
   final List<Widget> content;
   final String buttonText;
 
-  const _InfoPage({required this.title, required this.content, required this.buttonText});
+  const _InfoPage({
+    required this.title,
+    required this.content,
+    required this.buttonText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -228,10 +271,7 @@ class _InfoPage extends StatelessWidget {
             const Spacer(),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(buttonText),
-              ),
+              child: ElevatedButton(onPressed: () {}, child: Text(buttonText)),
             ),
           ],
         ),

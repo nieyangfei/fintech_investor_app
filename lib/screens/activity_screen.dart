@@ -12,10 +12,11 @@ class ActivityScreen extends StatefulWidget {
 class _ActivityScreenState extends State<ActivityScreen> {
   bool _showFilters = false;
   final List<String> _filterOptions = [
-    'Pending',
-    'Orders',
-    'Transfers',
-    'Deposits',
+    'Deposit Money',
+    'Transfer Money',
+    'Withdraw Money',
+    'Wire Funds',
+    'Automated Deductions',
   ];
   String? _selectedFilter;
   final List<Activity> _allActivities = Activities.activities;

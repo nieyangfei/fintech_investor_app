@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/activity.dart';
+import 'package:fintech_investor_app/models/activity.dart';
 
 class ActivityCard extends StatelessWidget {
   final Activity activity;
@@ -24,12 +24,7 @@ class ActivityCard extends StatelessWidget {
             ),
             Text(
               activity.status,
-              style: TextStyle(
-                color:
-                    activity.status == 'Processing'
-                        ? Colors.orange
-                        : Colors.green,
-              ),
+              style: TextStyle(color: _getOrderColor(activity.status)),
             ),
           ],
         ),
@@ -37,16 +32,22 @@ class ActivityCard extends StatelessWidget {
     );
   }
 
+  MaterialColor _getOrderColor(String status) {
+    return status == 'Processing' ? Colors.orange : Colors.green;
+  }
+
   Icon _getActivityIcon(String type) {
     switch (type) {
-      case 'Orders':
-        return const Icon(Icons.shopping_bag, color: Colors.blue);
-      case 'Transfers':
-        return const Icon(Icons.compare_arrows, color: Colors.purple);
-      case 'Deposits':
+      case 'Deposit Money':
         return const Icon(Icons.account_balance_wallet, color: Colors.green);
-      case 'Pending':
-        return const Icon(Icons.pending, color: Colors.orange);
+      case 'Transfer Money':
+        return const Icon(Icons.compare_arrows, color: Colors.blue);
+      case 'Withdraw Money':
+        return const Icon(Icons.money_off, color: Colors.red);
+      case 'Wire Funds':
+        return const Icon(Icons.wifi_tethering, color: Colors.purple);
+      case 'Automated Deductions':
+        return const Icon(Icons.autorenew, color: Colors.orange);
       default:
         return const Icon(Icons.receipt);
     }
