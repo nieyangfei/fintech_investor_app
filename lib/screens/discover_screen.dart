@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../models/news_service.dart';
-import '../models/stock_service.dart';
+import 'package:fintech_investor_app/models/news.dart';
+import 'package:fintech_investor_app/models/stock.dart';
+import 'package:fintech_investor_app/services/news_service.dart';
+import 'package:fintech_investor_app/services/stock_service.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});

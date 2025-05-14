@@ -3,8 +3,8 @@ import 'package:fintech_investor_app/models/accounts.dart';
 import 'package:fintech_investor_app/models/advertises.dart';
 import 'package:fintech_investor_app/screens/notifications_page.dart';
 import 'package:fintech_investor_app/screens/account_screen.dart';
-import 'package:fintech_investor_app/models/for_you.dart';
-import 'package:fintech_investor_app/models/rewards.dart';
+import 'package:fintech_investor_app/widgets/for_you.dart';
+import 'package:fintech_investor_app/screens/rewards_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_screen.dart';
 
@@ -30,20 +30,21 @@ class HomeScreen extends StatelessWidget {
             onPressed: () async {
               final confirmed = await showDialog(
                 context: context,
-                builder: (ctx) => AlertDialog(
-                  title: const Text('Logout'),
-                  content: const Text('Are you sure you want to logout?'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(ctx, false),
-                      child: const Text('Cancel'),
+                builder:
+                    (ctx) => AlertDialog(
+                      title: const Text('Logout'),
+                      content: const Text('Are you sure you want to logout?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(ctx, false),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(ctx, true),
+                          child: const Text('Logout'),
+                        ),
+                      ],
                     ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(ctx, true),
-                      child: const Text('Logout'),
-                    ),
-                  ],
-                ),
               );
 
               if (confirmed == true) {
@@ -86,7 +87,9 @@ class HomeScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 24,
-                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.2),
                 child: Text(
                   'JW',
                   style: TextStyle(
@@ -115,36 +118,55 @@ class HomeScreen extends StatelessWidget {
           ),
 
           const SizedBox(height: 24),
-          const Text('Your Accounts', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Your Accounts',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
 
           // — Accounts list —
-          ...demoAccounts.map((acct) => Card(
-            margin: const EdgeInsets.symmetric(vertical: 6),
-            child: ListTile(
-              leading: Icon(acct.icon, size: 32, color: Theme.of(context).primaryColor),
-              title: Text(acct.title, style: const TextStyle(fontWeight: FontWeight.w600)),
-              subtitle: Text(acct.subtitle),
-              onTap: () {
-              },
+          ...demoAccounts.map(
+            (acct) => Card(
+              margin: const EdgeInsets.symmetric(vertical: 6),
+              child: ListTile(
+                leading: Icon(
+                  acct.icon,
+                  size: 32,
+                  color: Theme.of(context).primaryColor,
+                ),
+                title: Text(
+                  acct.title,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(acct.subtitle),
+                onTap: () {},
+              ),
             ),
-          )),
+          ),
 
           const SizedBox(height: 24),
-          const Text('Recommended for You', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text(
+            'Recommended for You',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
 
           // — Recommendation cards —
-          ...demoAdvertises.map((ad) => Card(
-            margin: const EdgeInsets.symmetric(vertical: 6),
-            child: ListTile(
-              leading: Icon(ad.icon, size: 32, color: Theme.of(context).colorScheme.secondary),
-              title: Text(ad.title),
-              subtitle: Text(ad.subtitle),
-              onTap: () {
-              },
+          ...demoAdvertises.map(
+            (ad) => Card(
+              margin: const EdgeInsets.symmetric(vertical: 6),
+              child: ListTile(
+                leading: Icon(
+                  ad.icon,
+                  size: 32,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                title: Text(ad.title),
+                subtitle: Text(ad.subtitle),
+                onTap: () {},
+              ),
             ),
-          )),
+          ),
 
           const SizedBox(height: 24),
           const ForYou(), // ✅ "For You" section

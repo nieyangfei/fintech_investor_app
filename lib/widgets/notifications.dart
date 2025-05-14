@@ -5,6 +5,10 @@ class Notifications extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(icon: const Icon(Icons.doorbell), onPressed: () => print("Notification"), color: Colors.green,);
+    return IconButton(
+      icon: const Icon(Icons.doorbell),
+      onPressed: () => {},
+      color: Colors.green,
+    );
   }
 }
