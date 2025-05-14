@@ -2,13 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Screens
+import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/discover_screen.dart';
 import 'screens/move_screen.dart';
 import 'screens/activity_screen.dart';
 import 'screens/notifications_page.dart';
 import 'screens/account_screen.dart';
-
+import 'screens/portfolio_screen.dart';
 // Widgets
 import 'widgets/bottom_nav_bar.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         NotificationsPage.routeName: (_) => const NotificationsPage(),
         AccountScreen.routeName:     (_) => const AccountScreen(),
       },
-      home: const MainWrapper(),
+      home: const LoginScreen(),
     );
   }
 }
@@ -51,6 +52,7 @@ class _MainWrapperState extends State<MainWrapper> {
     const DiscoverScreen(),
     MoveScreen(),
     const ActivityScreen(),
+    const PortfolioScreen(),
   ];
 
   @override
