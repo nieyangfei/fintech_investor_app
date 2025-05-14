@@ -4,6 +4,7 @@ import 'package:fintech_investor_app/models/advertises.dart';
 import 'package:fintech_investor_app/screens/notifications_page.dart';
 import 'package:fintech_investor_app/screens/account_screen.dart';
 import 'package:fintech_investor_app/models/for_you.dart';
+import 'package:fintech_investor_app/models/rewards.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_screen.dart';
 
@@ -65,6 +66,18 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RewardsPage()),
+          );
+        },
+        tooltip: 'Go to Rewards',
+        child: const Icon(Icons.card_giftcard),
+      ),
+
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -93,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'Net worth: \$1,234,567.89',
+                    'Net worth: \$56,000.00',
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],
@@ -112,9 +125,7 @@ class HomeScreen extends StatelessWidget {
               leading: Icon(acct.icon, size: 32, color: Theme.of(context).primaryColor),
               title: Text(acct.title, style: const TextStyle(fontWeight: FontWeight.w600)),
               subtitle: Text(acct.subtitle),
-              trailing: const Icon(Icons.more_vert),
               onTap: () {
-                // optional: deep-link into each account
               },
             ),
           )),
@@ -131,12 +142,12 @@ class HomeScreen extends StatelessWidget {
               title: Text(ad.title),
               subtitle: Text(ad.subtitle),
               onTap: () {
-                // navigate to more details
               },
             ),
           )),
 
-          const ForYou(),
+          const SizedBox(height: 24),
+          const ForYou(), // ✅ "For You" section
         ],
       ),
     );
