@@ -28,6 +28,6 @@ final List<AccountItem> demoAccounts = [
   AccountItem(
     icon: Icons.show_chart,
     title: 'Stock Market',
-    subtitle: 'Value: \$954,564.56',
+    subtitle: 'Value: \$8,000.50',
   ),
 ];

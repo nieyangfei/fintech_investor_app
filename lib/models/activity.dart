@@ -34,7 +34,7 @@ class Activities {
       Activity(
         type: 'Deposits',
         title: 'Salary Deposit',
-        amount: '\$2,500.00',
+        amount: '\$4,560.00',
         date: DateTime(2023, 5, 1),
         status: 'Completed',
       ),
