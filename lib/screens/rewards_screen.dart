@@ -1,29 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:fintech_investor_app/models/offer.dart';
 
 class RewardsPage extends StatelessWidget {
   RewardsPage({super.key});
 
   final String referralLink = 'https://fintechinvestor.com/invite/FDUD8A';
 
-  final List<Map<String, String>> offers = [
-    {
-      'title': '10% Cashback on Stock Purchases',
-      'description': 'Use this code to get 10% cashback on your first stock purchase.',
-      'code': 'STOCK10',
-    },
-    {
-      'title': 'Free Crypto Trade',
-      'description': 'Get your first crypto trade free with this code.',
-      'code': 'CRYPTOFREE',
-    },
-    {
-      'title': 'Refer 3 Friends and Get \$50',
-      'description': 'Refer friends and earn \$50 in your wallet when they sign up.',
-      'code': 'REFER50',
-    },
-  ];
+  final List<Offer> offers = Offers().offers;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +23,7 @@ class RewardsPage extends StatelessWidget {
           bottom: const TabBar(
             labelColor: Colors.black,
             indicatorColor: Colors.black,
-            tabs: [
-              Tab(text: 'Offers'),
-              Tab(text: 'Invite Friends'),
-            ],
+            tabs: [Tab(text: 'Offers'), Tab(text: 'Invite Friends')],
           ),
         ),
         body: TabBarView(
@@ -54,7 +36,9 @@ class RewardsPage extends StatelessWidget {
                 final offer = offers[index];
                 return Card(
                   elevation: 3,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   margin: const EdgeInsets.only(bottom: 16),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -62,12 +46,15 @@ class RewardsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          offer['title'] ?? '',
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          offer.title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          offer['description'] ?? '',
+                          offer.description,
                           style: const TextStyle(fontSize: 14),
                         ),
                         const SizedBox(height: 10),
@@ -75,23 +62,32 @@ class RewardsPage extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 12,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade100,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
-                                  offer['code'] ?? '',
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  offer.code,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
                             IconButton(
                               icon: const Icon(Icons.copy),
                               onPressed: () {
-                                Clipboard.setData(ClipboardData(text: offer['code']!));
+                                Clipboard.setData(
+                                  ClipboardData(text: offer.code),
+                                );
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text('Offer code copied!')),
+                                  const SnackBar(
+                                    content: Text('Offer code copied!'),
+                                  ),
                                 );
                               },
                             ),
@@ -111,7 +107,10 @@ class RewardsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20),
-                  Image.asset('assets/images/gift.jpg', height: 120), // Ensure the image exists
+                  Image.asset(
+                    'assets/images/gift.jpg',
+                    height: 120,
+                  ), // Ensure the image exists
                   const SizedBox(height: 20),
                   const Text(
                     'Refer friends and get \$25',
@@ -134,7 +133,9 @@ class RewardsPage extends StatelessWidget {
                         onPressed: () {
                           Clipboard.setData(ClipboardData(text: referralLink));
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Copied to clipboard!')),
+                            const SnackBar(
+                              content: Text('Copied to clipboard!'),
+                            ),
                           );
                         },
                       ),
@@ -148,7 +149,9 @@ class RewardsPage extends StatelessWidget {
                     },
                     icon: const Icon(Icons.share),
                     label: const Text('Share'),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                    ),
                   ),
                   const SizedBox(height: 30),
                   TextField(

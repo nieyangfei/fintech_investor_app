@@ -7,13 +7,9 @@ class PortfolioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final color = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("My Portfolio"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text("My Portfolio"), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -128,8 +124,11 @@ class _HoldingTile extends StatelessWidget {
 
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
-        child: Text(symbol[0], style: TextStyle(color: theme.colorScheme.primary)),
+        backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
+        child: Text(
+          symbol[0],
+          style: TextStyle(color: theme.colorScheme.primary),
+        ),
       ),
       title: Text(name, style: theme.textTheme.bodyLarge),
       subtitle: Text(symbol),
@@ -137,7 +136,12 @@ class _HoldingTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(value, style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
+          Text(
+            value,
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           Text(
             change,
             style: TextStyle(

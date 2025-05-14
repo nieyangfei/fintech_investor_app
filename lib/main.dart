@@ -10,15 +10,16 @@ import 'screens/activity_screen.dart';
 import 'screens/notifications_page.dart';
 import 'screens/account_screen.dart';
 import 'screens/portfolio_screen.dart';
+
 // Widgets
 import 'widgets/bottom_nav_bar.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const FinTechApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FinTechApp extends StatelessWidget {
+  const FinTechApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       // Named routes for direct navigation
       routes: {
         NotificationsPage.routeName: (_) => const NotificationsPage(),
-        AccountScreen.routeName:     (_) => const AccountScreen(),
+        AccountScreen.routeName: (_) => const AccountScreen(),
       },
       home: const LoginScreen(),
     );

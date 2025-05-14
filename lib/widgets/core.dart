@@ -7,7 +7,7 @@ class Core extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.person),
-      onPressed: () => print("Core"),
+      onPressed: () => {},
       color: Colors.blue,
     );
   }

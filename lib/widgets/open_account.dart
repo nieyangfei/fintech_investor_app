@@ -6,7 +6,7 @@ class OpenAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => print("Open an Account"),
+      onPressed: () => {},
       child: Text(
         "Open an account",
         style: Theme.of(context).textTheme.headlineSmall,
