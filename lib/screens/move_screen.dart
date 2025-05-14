@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MoveApp());
-}
-
-class MoveApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MoveScreen(),
-    );
-  }
-}
-
 class MoveScreen extends StatelessWidget {
   final List<_MoveItem> moveItems = [
     _MoveItem(icon: Icons.arrow_downward, title: 'Deposit', screen: DepositScreen()),
@@ -27,130 +13,227 @@ class MoveScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF5F5F9),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Move',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
         ),
         automaticallyImplyLeading: false,
       ),
       body: ListView.separated(
         itemCount: moveItems.length,
-        separatorBuilder: (_, __) => Divider(height: 1, color: Colors.grey.shade200),
+        separatorBuilder: (_, __) => Divider(height: 1, color: Colors.grey.shade300),
         itemBuilder: (context, index) {
           final item = moveItems[index];
           return ListTile(
-            leading: Icon(item.icon, color: Colors.grey.shade600),
-            title: Text(
-              item.title,
-              style: TextStyle(
-                color: Colors.grey.shade800,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            trailing: Icon(Icons.chevron_right, color: Colors.grey),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => item.screen),
-              );
-            },
+            leading: Icon(item.icon, color: Theme.of(context).colorScheme.primary),
+            title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.w600)),
+            trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => item.screen)),
           );
         },
       ),
-      // Remove or comment this part:
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: 2,
-      //   selectedItemColor: Colors.black,
-      //   unselectedItemColor: Colors.grey,
-      //   type: BottomNavigationBarType.fixed,
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
-      //     BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-      //     BottomNavigationBarItem(icon: Icon(Icons.swap_horiz), label: ''),
-      //     BottomNavigationBarItem(icon: Icon(Icons.access_time), label: ''),
-      //   ],
-      // ),
     );
   }
 }
-
 
 class _MoveItem {
   final IconData icon;
   final String title;
   final Widget screen;
-
   _MoveItem({required this.icon, required this.title, required this.screen});
 }
 
+// 🔁 Reusable Form Field
+Widget buildTextField(String label, String hint) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+      const SizedBox(height: 4),
+      TextField(
+        decoration: InputDecoration(
+          hintText: hint,
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
+      const SizedBox(height: 16),
+    ],
+  );
+}
+
+// 💸 Deposit Page
 class DepositScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _SimpleScreen(title: "Deposit");
+    return _FormPage(
+      title: "Deposit",
+      children: [
+        buildTextField("Amount", "\$5000"),
+        buildTextField("From Bank Account", "Chase Bank - 1234"),
+      ],
+      buttonText: "Confirm Deposit",
+    );
   }
 }
 
+// 🔄 Transfer Page
 class TransferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _SimpleScreen(title: "Transfer");
+    return _FormPage(
+      title: "Transfer",
+      children: [
+        buildTextField("From Account", "Savings"),
+        buildTextField("To Account", "Stock Market"),
+        buildTextField("Amount", "\$1500"),
+      ],
+      buttonText: "Transfer Funds",
+    );
   }
 }
 
+// ⬆ Withdraw Page
 class WithdrawScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _SimpleScreen(title: "Withdraw");
+    return _FormPage(
+      title: "Withdraw",
+      children: [
+        buildTextField("From Account", "Bitcoin Wallet"),
+        buildTextField("To Bank", "Wells Fargo - 5678"),
+        buildTextField("Amount", "\$2000"),
+      ],
+      buttonText: "Withdraw Funds",
+    );
   }
 }
 
+// 🏦 Move Account
 class MoveAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _SimpleScreen(title: "Move an account to Wealthsimple");
+    return _InfoPage(
+      title: "Move Account",
+      content: [
+        const Text("Transfer your 401(k), TFSA, or RRSP to TradePulse."),
+        const SizedBox(height: 12),
+        const Text("Processing takes 3–5 business days."),
+      ],
+      buttonText: "Start Transfer",
+    );
   }
 }
 
+// 🏧 Wire Funds
 class WireFundsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _SimpleScreen(title: "Wire Funds");
+    return _FormPage(
+      title: "Wire Funds",
+      children: [
+        buildTextField("Recipient Name", "Jane Doe"),
+        buildTextField("Bank Name", "CitiBank"),
+        buildTextField("Amount", "\$10,000"),
+      ],
+      buttonText: "Send Wire",
+    );
   }
 }
 
+// 🔁 Automations
 class AutomationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _SimpleScreen(title: "Automations");
+    return Scaffold(
+      appBar: AppBar(title: const Text("Automations")),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: const [
+          ListTile(
+            leading: Icon(Icons.repeat, color: Colors.blue),
+            title: Text("Auto Deposit to Stocks"),
+            subtitle: Text("Every 1st of month - \$500"),
+          ),
+          ListTile(
+            leading: Icon(Icons.currency_bitcoin, color: Colors.orange),
+            title: Text("Weekly Bitcoin Buy"),
+            subtitle: Text("Every Monday - \$100"),
+          ),
+        ],
+      ),
+    );
   }
 }
 
-class _SimpleScreen extends StatelessWidget {
+// ✅ FormPage Template
+class _FormPage extends StatelessWidget {
   final String title;
+  final List<Widget> children;
+  final String buttonText;
 
-  const _SimpleScreen({required this.title});
+  const _FormPage({required this.title, required this.children, required this.buttonText});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title, style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
+      backgroundColor: const Color(0xFFF5F5F9),
+      appBar: AppBar(title: Text(title)),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            ...children,
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(buttonText),
+              ),
+            ),
+          ],
+        ),
       ),
-      body: Center(
-        child: Text(
-          '$title Page',
-          style: TextStyle(fontSize: 22),
+    );
+  }
+}
+
+// ✅ InfoPage Template
+class _InfoPage extends StatelessWidget {
+  final String title;
+  final List<Widget> content;
+  final String buttonText;
+
+  const _InfoPage({required this.title, required this.content, required this.buttonText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F9),
+      appBar: AppBar(title: Text(title)),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ...content,
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(buttonText),
+              ),
+            ),
+          ],
         ),
       ),
     );
